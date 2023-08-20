@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/dashMercy.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css">
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <title>Streexzy - Painel</title>
+</head>
+
+<body>
+<%- include('partials/NavBar.ejs'); %>
+<div class="welcome">
+    <h2>Olá, que bom te ver novamente!</h2>
+    <p>Aqui está as análises de nossa loja.</p>
+</div>
+<div class="graphics">
+    <div class="analystic">
+        <p>Rendimentos do dia</p>
+        <h2>R$ <%- dayRevenue.toLocaleString('pt-BR', {minimumFractionDigits: 2}) %></h2>
+    </div>
+    <div class="analystic">
+        <p>Rendimentos da semana</p>
+        <h2>R$ <%- weekRevenue.toLocaleString('pt-BR', {minimumFractionDigits: 2}) %></h2>
+    </div>
+    <div class="analystic">
+        <p>Rendimentos do mês</p>
+        <h2>R$ <%- monthRevenue.toLocaleString('pt-BR', {minimumFractionDigits: 2}) %></h2>
+    </div>
+</div>
+<div class="graphics">
+    <div class="analystic" style="width: 350px;">
+        <p>Vendas do dia</p>
+        <h2><%- daySales.toLocaleString('pt-BR') %></h2>
+    </div>
+    <div class="analystic" style="width: 350px;">
+        <p>Vendas da semana</p>
+        <h2><%- weekSales.toLocaleString('pt-BR') %></h2>
+    </div>
+    <div class="analystic" style="width: 350px;">
+        <p>Vendas do mês</p>
+        <h2><%- monthSales.toLocaleString('pt-BR') %></h2>
+    </div>
+</div>
+<div class="buys-container">
+    <h2>Compras Recentes</h2>
+    <div class="col-table">
+        <div class="buys-row">
+            <table class="table">
+                <thead>
+                <th>#</th>
+                <th>Email</th>
+                <th>Categoria</th>
+                <th>Produto</th>
+                <th>Preço</th>
+                <th>Stock</th>
+                </thead>
+                <tbody>
+                <% payments.forEach(payment => { %>
+                    <tr>
+                        <td data-label="#">
+                            <p><%- payment.mpId ? payment.mpId : payment.id %></p>
+                        </td>
+                        <td data-label="Email">
+                            <p><%- payment.email %></p>
+                        </td>
+                        <td data-label="Categoria">
+                            <p><%- payment.category.name %></p>
+                        </td>
+                        <td data-label="Produto">
+                            <p><%- payment.product.name %></p>
+                        </td>
+                        <td data-label="Preço">
+                            <p>R$ <%- payment.price.toLocaleString('pt-BR', {minimumFractionDigits: 2}) %></p>
+                        </td>
+                        <td>
+                            <p onclick="showStock('<%= payment.stock ? payment.stock : "Não foi possivel obter" %>')"><i class='bx bx-low-vision' style='color:#ffffff' ></i></p>
+                        </td>
+                    </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<%- include('partials/FooterDash.ejs'); %>
+<script>
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    });
+
+    function showStock(stock) {
+        Toast.fire({
+            icon: "info",
+            title: stock,
+        });
+    }
+</script>
+</body>
+
+</html>

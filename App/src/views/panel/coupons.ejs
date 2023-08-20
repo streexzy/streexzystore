@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/public/css/dashMercy.css"/>
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+    />
+    <title>Streexzy - Painel</title>
+</head>
+
+<body>
+<%- include('partials/NavBar.ejs'); %>
+<div class="welcome-2">
+    <div class="row-welcome-2">
+        <h2>Página de gerenciamento:</h2>
+        <p>Gerencimaneto de cupons do sistema</p>
+    </div>
+</div>
+<div class="actions">
+    <div class="row-actions">
+        <div class="action">
+            <h2>Criar Cupom</h2>
+            <form action="/panel/coupons/create" method="post">
+                <label for="coupon">Código:</label>
+                <input type="text" id="coupon" name="couponName">
+
+                <label for="coupon">Valor de desconto: (0.1 = 10%)</label>
+                <input type="text" id="coupon" name="couponValue" value="0.1">
+
+                <input type="submit" value="Criar">
+            </form>
+        </div>
+        <div class="action">
+            <h2>Remover Cupom</h2>
+            <form action="/panel/coupons/delete" method="post">
+                <label for="coupon">Código:</label>
+                <select id="coupon" name="couponId">
+                    <% coupons.forEach((coupon) => { %>
+                        <option value="<%= coupon.id %>"><%= coupon.code %> (<%= coupon.discount * 100 %>%)</option>
+                    <% }) %>
+                </select>
+
+                <input type="submit" value="Remover">
+            </form>
+        </div>
+    </div>
+</div>
+<%- include('partials/FooterDash.ejs'); %>
+</body>
+</html>

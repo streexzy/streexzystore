@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/public/css/dashMercy.css"/>
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+    />
+    <title>Streexzy - Painel</title>
+</head>
+
+<body>
+<%- include('partials/NavBar.ejs'); %>
+<div class="welcome-2">
+    <div class="row-welcome-2">
+        <h2>Página de gerenciamento:</h2>
+        <p>Gerencimaneto de produtos do sistema</p>
+    </div>
+</div>
+<div class="actions">
+    <div
+            class="row-actions"
+            style="flex-wrap: wrap; justify-content: space-around"
+    >
+        <div class="col-1">
+            <div class="action">
+                <h2>Criar Produto</h2>
+                <form action="/panel/product/create" method="post" id="createProductForm">
+                    <label for="category">Categoria:</label>
+                    <select
+                            id="category"
+                            name="categoryId"
+                    >
+                        <% categories.forEach((category) => { %>
+                            <option value="<%= category.id %>"><%= category.name %></option>
+                        <% }) %>
+                    </select>
+
+                    <label for="product">Produto:</label>
+                    <input type="text" id="product" name="productName"/>
+
+                    <label for="product">Imagem:</label>
+                    <input type="text" id="product" name="productImage"/>
+
+                    <label for="product">Extender:</label>
+                    <input type="text" id="product" name="productExtend"/>
+
+                    <div class="wrap">
+                        <label for="product">Beneficios:</label>
+                        <a style="border: none;" class="add" id="addBenefits">&plus;</a>
+                    </div>
+                    <div class="benefits" id="addProductBenefits"></div>
+
+                    <label for="product">Preço:</label>
+                    <input type="text" id="product" name="productPrice"/>
+
+                    <label for="product">Stocks:</label>
+                    <input type="text" id="product" name="productStocks" value="[]"/>
+
+                    <input type="submit" onclick="createProduct()" value="Adicionar"/>
+                </form>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="action">
+                <h2>Remover Produto</h2>
+                <form action="/panel/product/delete" method="post">
+                    <select id="productList" name="productId">
+                        <% categories.map((c) => c.products).forEach((products) => { %>
+                            <% products.forEach((product) => { %>
+                                <option value="<%= product.categoryId %>;<%= product.id %>"><%= product.name %></option>
+                            <% }) %>
+                        <% }) %>
+                    </select>
+                    <input type="submit" value="Remover"/>
+                </form>
+            </div>
+            <div class="action">
+                <h2>Editar Produto</h2>
+                <form action="/panel/product/edit" method="post" id="editProductForm">
+                    <label for="product">Produto:</label>
+                    <select
+                            id="productList23"
+                            name="productId"
+                            onchange="setProductData()"
+                            onselect="setProductData()"
+                    >
+                        <% categories.map((c) => c.products).forEach((products) => { %>
+                            <% products.forEach((product) => { %>
+                                <option value="<%= product.categoryId %>;<%= product.id %>"><%= product.name %></option>
+                            <% }) %>
+                        <% }) %>
+                    </select>
+
+                    <div id="productData"></div>
+
+                    <input type="submit" onclick="updateProduct()" value="Editar"/>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/public/js/manageProducts.js"></script>
+<script>
+    const categoriesList = JSON.parse(JSON.stringify(<%- JSON.stringify(categories) %>))
+    const createProductForm = document.getElementById('createProductForm')
+    const editProductForm = document.getElementById('editProductForm')
+
+    function createProduct() {
+        const benefits = document.querySelectorAll('#addProductBenefits div')
+        const benefitsArray = []
+
+        benefits.forEach((benefit) => {
+            const text = benefit.querySelector('#benefitText').value
+            const image = benefit.querySelector('#benefitImage').value
+
+            benefitsArray.push({
+                name: text,
+                image
+            })
+        })
+
+        const input = document.createElement('input')
+        input.type = 'hidden'
+        input.name = 'productBenefits'
+        input.value = JSON.stringify(benefitsArray)
+        createProductForm.appendChild(input)
+
+        createProductForm.submit()
+    }
+
+    function setProductData() {
+        const product = document.getElementById('productList23').value.split(';')
+        const category = categoriesList.find((c) => c.id === parseInt(product[0]))
+        const productDataObject = category.products.find((p) => p.id === parseInt(product[1]))
+        const editProductData = document.querySelector("#productData")
+
+        if (!productDataObject) {
+            return
+        }
+
+        editProductData.innerHTML = `
+            <label for="product">Produto:</label>
+            <input type="text" id="product" name="productName" value="${productDataObject.name}"/>
+
+            <label for="product">Imagem:</label>
+            <input type="text" id="product" name="productImage" value="${productDataObject.image}"/>
+
+            <label for="product">Extender:</label>
+            <input type="text" id="product" name="productExtend" value="${productDataObject.extend}"/>
+
+            <div class="wrap">
+                        <label for="product">Beneficios:</label>
+                        <a style="border: none;" class="add" id="editAddBenefits">&plus;</a>
+                    </div>
+                    <div class="benefits" id="editProductBenefits"></div>
+
+            <label for="product">Preço:</label>
+            <input type="text" id="product" name="productPrice" value="${productDataObject.price}"/>
+
+            <label for="product">Stocks:</label>
+            <input type="text" id="product" name="productStocks" value='${JSON.stringify(productDataObject.stocks)}'/>
+        `
+
+        const editProductAdd = document.querySelector("#editAddBenefits")
+        const editProductBenefits = document.querySelector("#editProductBenefits")
+        editProductBenefits.innerHTML = ""
+
+        addInputsEdit(productDataObject.benefits)
+
+        editProductAdd?.addEventListener("click", () => addInput(editProductBenefits))
+    }
+
+    setProductData()
+
+    function updateProduct() {
+        const benefits = document.querySelectorAll('#editProductBenefits div')
+        const benefitsArray = []
+
+        benefits.forEach((benefit) => {
+            const text = benefit.querySelector('#benefitText').value
+            const image = benefit.querySelector('#benefitImage').value
+
+            benefitsArray.push({
+                name: text,
+                image
+            })
+        })
+
+        const input = document.createElement('input')
+        input.type = 'hidden'
+        input.name = 'productBenefits'
+        input.value = JSON.stringify(benefitsArray)
+        editProductForm.appendChild(input)
+
+        editProductForm.submit()
+    }
+</script>
+<%- include('partials/FooterDash.ejs'); %>
+</body>
+</html>

@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/css/streexzy.css" />
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.6.4.js"></script>
+    <title>Streexzy - Início</title>
+</head>
+
+<body>
+<!-- Preloader -->
+<div id="preloader">
+    <div class="inner">
+        <div class="honeycomb">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+</div>
+<!-- Preloader-End -->
+
+<!-- Modals -->
+<div id="paymentSelector" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" id="closeModalBuy">&times;</span>
+            <h2>Selecionar método de pagamento:</h2>
+        </div>
+        <div class="buy-info" id="buy-info">
+            <h2>Minecraft Full Acesso + Capa Optifine</h2>
+            <p>Quantidade: 1</p>
+            <p>Preço: R$00.00</p>
+        </div>
+        <div class="delivery-info">
+            <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Escreva seu email para recebimento"
+            />
+            <input type="text" placeholder="Cupom" id="coupon" name="coupon" />
+        </div>
+        <div class="methods">
+            <button class="modal-button method" id="paymentPixSubmit">
+                <h2>Pagar</h2>
+            </button>
+            <p>Ao pagar, aceitas os <a href="">Termos e condições</a></p>
+        </div>
+    </div>
+</div>
+
+<div id="paymentPix" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" id="closeModalPay">&times;</span>
+            <h2>Realize o pagamento via Pix:</h2>
+        </div>
+        <div class="modal-pay-now">
+            <p style="display: flex; align-items: center">
+                <i
+                        class="bx bxs-camera"
+                        style="color: rgba(183, 182, 182, 0.89)"
+                ></i>
+                Pague via QrCode:
+            </p>
+            <div class="qr-code" id="payQrCode">
+                <img
+                        src="https://media.discordapp.net/attachments/1099585963413487666/1100090353467539467/mercadopago_pixQr.png"
+                        alt="Image Error"
+                        width="200px"
+                />
+            </div>
+            <input
+                    style="
+              padding: 5px;
+              margin: 5px 0;
+              border-radius: 6px;
+              border: 2px solid #1c1f35;
+              background: none;
+              color: white;
+              width: 325px;
+            "
+                    type="text"
+                    name="copyandpaste"
+                    id="copyandpaste"
+                    value="dasdas"
+                    readonly
+            />
+            <p>
+                <button
+                        onclick="copiarTexto()"
+                        style="display: flex; align-items: center"
+                >
+                    <i
+                            class="bx bx-copy-alt"
+                            style="color: rgba(183, 182, 182, 0.89)"
+                    ></i>
+                    Copie e Cole
+                </button>
+            </p>
+        </div>
+        <div class="pay-info" id="pay-info">
+            <p style="color: white">Minecraft Full Acesso</p>
+            <p style="color: white">Quantidade: 1</p>
+            <p style="color: white">Valor: R$00.00</p>
+            <P style="color: white">Email: xxwhitexx.vendas@outlook.com</P>
+            <a href="">Dúvidas?</a>
+        </div>
+    </div>
+</div>
+
+<div id="paymentApproved" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <span class="close" id="closeModalBuyed">&times;</span>
+            <h2 style="color: white">Compra realizada!</h2>
+        </div>
+        <div class="approved-info">
+            <svg
+                    width="115px"
+                    height="115px"
+                    viewBox="0 0 133 133"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+                <g
+                        id="check-group"
+                        stroke="none"
+                        stroke-width="1"
+                        fill="none"
+                        fill-rule="evenodd"
+                >
+                    <circle
+                            id="filled-circle"
+                            fill="#07b481"
+                            cx="66.5"
+                            cy="66.5"
+                            r="54.5"
+                    />
+                    <circle
+                            id="white-circle"
+                            fill="#FFFFFF"
+                            cx="66.5"
+                            cy="66.5"
+                            r="55.5"
+                    />
+                    <circle
+                            id="outline"
+                            stroke="#07b481"
+                            stroke-width="4"
+                            cx="66.5"
+                            cy="66.5"
+                            r="54.5"
+                    />
+                    <polyline
+                            id="check"
+                            stroke="#FFFFFF"
+                            stroke-width="5.5"
+                            points="41 70 56 85 92 49"
+                    />
+                </g>
+            </svg>
+            <h2
+                    style="
+              opacity: 0.9;
+              margin-top: 10px;
+              color: white;
+              text-align: center;
+            "
+            >
+                ❤️ Obrigado pela preferência! ❤️
+            </h2>
+            <p
+                    style="
+              opacity: 0.9;
+              margin-top: 10px;
+              color: white;
+              text-align: center;
+            "
+            >
+                Seu produto será entregue em seu email logo logo...
+            </p>
+        </div>
+    </div>
+</div>
+<!-- Modals End -->
+
+<!-- Header -->
+<div class="layout">
+    <div class="nav-container">
+        <div class="brand">
+            <img
+                    class="logo-brand"
+                    src="https://media.discordapp.net/attachments/1050185086861062174/1107171231964348416/StreexzyLogo.png"
+                    alt="Image Error"
+                    width="80px"
+            />
+        </div>
+        <nav>
+            <div class="nav-mobile">
+                <a id="navbar-toggle" href="#!"><span></span></a>
+            </div>
+            <ul class="nav-list" style="display: flex; align-items: center">
+                <li>
+                    <a href="#products">Comprar</a>
+                </li>
+                <li>
+                    <a href="#faq">FAQ</a>
+                </li>
+                <li>
+                    <a
+                            href="https://discord.gg/pZumQvvxqB"
+                            target="_blank"
+                            class="support-btn"
+                    >Suporte</a
+                    >
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <img
+            src="https://media.discordapp.net/attachments/1050185086861062174/1107176071637516288/Bubble_Red.png"
+            alt=""
+            style="
+          z-index: 2;
+          position: absolute;
+          margin-top: 290px;
+          -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+          opacity: 0.8;
+        "
+    />
+    <div class="presentation">
+        <div class="presentation-texts">
+            <h2 class="welcome neon">STREEXZY STORE</h2>
+            <p class="atencion">
+                Faça sua compra de nossos protudos com segurança, qualida e rapidez
+                na entrega!
+            </p>
+            <a href="#products"
+            ><button class="btn-see" onclick="thanksForBuy()">
+                    Saber Mais
+                </button></a
+            >
+        </div>
+        <img
+                class="render"
+                src="https://media.discordapp.net/attachments/1105431088114974750/1105915865045680200/IMG_5182.png"
+                alt="Image Error"
+                width="200px"
+        />
+    </div>
+</div>
+<!-- Header End -->
+
+<!-- Skills -->
+<div class="skills" style="margin-top: 70px">
+    <div class="skill">
+        <div class="col-1">
+            <img
+                    src="https://media.discordapp.net/attachments/1050185086861062174/1107185730205257758/icons8-boia-salva-vidas-30_1.png"
+                    alt=""
+            />
+            <h2>Suporte</h2>
+        </div>
+        <div class="col-2">
+            <p>
+                Nós da equipe Streexzy oferecemos um suporte 24/7 para suprir
+                quaisquer dúvidas ou problemas.
+            </p>
+        </div>
+    </div>
+    <div class="skill">
+        <div class="col-1">
+            <img
+                    src="https://media.discordapp.net/attachments/1050185086861062174/1107186328883445800/icons8-cadeado-30.png"
+                    alt=""
+            />
+            <h2>Segurança</h2>
+        </div>
+        <div class="col-2">
+            <p>
+                Estamos sempre trabalhando para garantir a máxima segurança para
+                nossos sistemas.
+            </p>
+        </div>
+    </div>
+    <div class="skill">
+        <div class="col-1">
+            <img
+                    src="https://media.discordapp.net/attachments/1050185086861062174/1107186640897720351/icons8-caixa-30.png"
+                    alt=""
+            />
+            <h2>Entrega</h2>
+        </div>
+        <div class="col-2">
+            <p>
+                Seus produtos serão enviados assim que a compra for concluída e o
+                pagamento verificado
+            </p>
+        </div>
+    </div>
+</div>
+<!-- Skills End -->
+
+<div
+        class="bubble"
+        style="
+        z-index: -1;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+        position: absolute;
+      "
+>
+    <img
+            src="https://media.discordapp.net/attachments/1050185086861062174/1107176071637516288/Bubble_Red.png"
+            alt=""
+            style="
+          position: absolute;
+          margin-top: 150px;
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+          opacity: 0.8;
+        "
+    />
+</div>
+
+<!-- Products -->
+<div class="products">
+    <div class="navegate-products">
+        <h2>Veja nossos produtos</h2>
+        <ul>
+            <% categories.forEach((c) => { %>
+                <li onclick='setCurrentCategory(<%- JSON.stringify(c) %>)'><%- c.name %></li>
+            <% }) %>
+        </ul>
+    </div>
+    <div class="row-products" id="products">
+        <div class="product">
+            <div class="content">
+                <img
+                        src="https://media.discordapp.net/attachments/1105431088114974750/1105915865045680200/IMG_5182.png"
+                        alt=""
+                        width: 255px;
+                        height: 150px;
+                />
+                <h2>Minecraft Full Acesso</h2>
+                <div class="benefits">
+                    <div class="benefit">
+                        <p>
+                            <i class="bx bx-check" style="color: #2bf956"></i> Sem
+                            Banimentos
+                        </p>
+                    </div>
+                    <div class="benefit">
+                        <p>
+                            <i class="bx bx-check" style="color: #2bf956"></i> Altera
+                            e-mail e senha
+                        </p>
+                    </div>
+                    <div class="benefit">
+                        <p>
+                            <i class="bx bx-check" style="color: #2bf956"></i> Mude nick e
+                            skin
+                        </p>
+                    </div>
+                    <div class="benefit">
+                        <p>
+                            <i class="bx bx-check" style="color: #2bf956"></i> Altera
+                            perguntas de segurança
+                        </p>
+                    </div>
+                </div>
+                <button class="product-buy">
+                    <span class="button_top"> Comprar </span>
+                </button>
+                <h1 class="price">R$ 00.00</h1>
+            </div>
+        </div>
+        <div class="product">
+            <div class="content">
+                <img
+                        src="https://media.discordapp.net/attachments/1105431088114974750/1105915865045680200/IMG_5182.png"
+                        alt=""
+                        width: 255px;
+                        height: 150px;
+                />
+                <h2>Minecraft Full Acesso</h2>
+                <div class="benefits">
+                    <div class="benefit">
+                        <p>
+                            <i class="bx bx-check" style="color: #2bf956"></i> Sem
+                            Banimentos
+                        </p>
+                    </div>
+                    <div class="benefit">
+                        <p>
+                            <i class="bx bx-check" style="color: #2bf956"></i> Altera
+                            e-mail e senha
+                        </p>
+                    </div>
+                    <div class="benefit">
+                        <p>
+                            <i class="bx bx-check" style="color: #2bf956"></i> Mude nick e
+                            skin
+                        </p>
+                    </div>
+                    <div class="benefit">
+                        <p>
+                            <i class="bx bx-check" style="color: #2bf956"></i> Altera
+                            perguntas de segurança
+                        </p>
+                    </div>
+                </div>
+                <button class="product-buy">
+                    <span class="button_top"> Comprar </span>
+                </button>
+                <h1 class="price">R$ 00.00</h1>
+            </div>
+        </div>
+        <div class="product">
+            <div class="content">
+                <img
+                        src="https://media.discordapp.net/attachments/1105431088114974750/1105915865045680200/IMG_5182.png"
+                        alt=""
+                        width: 255px;
+                        height: 150px;
+                />
+                <h2>Minecraft Full Acesso</h2>
+                <div class="benefits">
+                    <div class="benefit">
+                        <p>
+                            <i class="bx bx-check" style="color: #2bf956"></i> Sem
+                            Banimentos
+                        </p>
+                    </div>
+                    <div class="benefit">
+                        <p>
+                            <i class="bx bx-check" style="color: #2bf956"></i> Altera
+                            e-mail e senha
+                        </p>
+                    </div>
+                    <div class="benefit">
+                        <p>
+                            <i class="bx bx-check" style="color: #2bf956"></i> Mude nick e
+                            skin
+                        </p>
+                    </div>
+                    <div class="benefit">
+                        <p>
+                            <i class="bx bx-check" style="color: #2bf956"></i> Altera
+                            perguntas de segurança
+                        </p>
+                    </div>
+                </div>
+                <button class="product-buy">
+                    <span class="button_top"> Comprar </span>
+                </button>
+                <h1 class="price">R$ 00.00</h1>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Products End -->
+
+<!-- NeedHelp -->
+<div class="needhelp">
+    <h2>Precisa de ajuda?</h2>
+    <p>Contate-nos através de nossas redes sociais!</p>
+    <ul class="wrapper">
+        <a href="https://discord.gg/pZumQvvxqB">
+            <li class="icon facebook">
+                <span class="tooltip">Discord</span>
+                <span
+                ><i
+                            class="bx bxl-discord-alt"
+                            style="color: white; font-size: 35px"
+                    ></i
+                    ></span>
+            </li>
+        </a>
+        <a href="">
+            <li class="icon twitter">
+                <span class="tooltip">Twitter</span>
+                <span
+                ><i
+                            class="bx bxl-twitter"
+                            style="color: white; font-size: 35px"
+                    ></i
+                    ></span>
+            </li>
+        </a>
+        <a href="">
+            <li class="icon instagram">
+                <span class="tooltip">Instagram</span>
+                <span
+                ><i
+                            class="bx bxl-instagram-alt"
+                            style="color: white; font-size: 35px"
+                    ></i
+                    ></span>
+            </li>
+        </a>
+    </ul>
+</div>
+<!-- NeedHelp End -->
+
+<img
+        src="https://media.discordapp.net/attachments/1050185086861062174/1107176071637516288/Bubble_Red.png"
+        alt=""
+        style="
+        z-index: -1;
+        position: absolute;
+        margin-top: 60px;
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+        opacity: 0.8;
+      "
+/>
+<!-- FAQ -->
+<div class="streexzy-faq" id="faq">
+    <h1 class="faq-title">FAQ</h1>
+    <div class="quests">
+        <div class="quests-1">
+            <ul>
+                <li class="input-faq">
+                    <input type="checkbox" checked />
+                    <i></i>
+                    <h2>Quanto tempo levaravá para minha conta chegar?</h2>
+                    <p>
+                        Nosso site conta com um sistema de entrega automático. Assim que
+                        o pagamento é aprovado é enviado um email para você com as
+                        informações do jogo.
+                    </p>
+                </li>
+                <li class="input-faq">
+                    <input type="checkbox" checked />
+                    <i></i>
+                    <h2>Eu corro algum risco de perder a minha conta?</h2>
+                    <p>
+                        Isso de fato acontece nas outras lojas, mas não precisa ter medo
+                        disso na Streexzy. Nossas contas são Originais e serão migradas
+                        para seu e-mail, é impossível de perder sua conta.
+                    </p>
+                </li>
+                <li class="input-faq">
+                    <input type="checkbox" checked />
+                    <i></i>
+                    <h2>É seguro comprar?</h2>
+                    <p>
+                        Sim. Todo ambiente do site utiliza a criptografia 256 bits.
+                        Todas as informações que são transmitidas pelo site passam a ser
+                        criptografadas.
+                    </p>
+                </li>
+            </ul>
+        </div>
+        <div class="quests-2">
+            <ul>
+                <li class="input-faq">
+                    <input type="checkbox" checked />
+                    <i></i>
+                    <h2>Comprei o jogo e ainda não chegou?</h2>
+                    <p>
+                        A entrega é feita através de nosso sistema após a aprovação.
+                        Caso não tenha uma conta em estoque, o envio é feito manualmente
+                        e pode demorar um pouco. Nosso prazo máximo é de 48h, se
+                        ultrapassar esse tempo nos contate pela nossa página de contato.
+                    </p>
+                </li>
+                <li class="input-faq">
+                    <input type="checkbox" checked />
+                    <i></i>
+                    <h2>Quais as formas de pagamentos aceitas?</h2>
+                    <p>
+                        É possível realizar a compra por Boleto Bancário, Cartões de
+                        Crédito, Pix e Débito Online.
+                    </p>
+                </li>
+                <li class="input-faq">
+                    <input type="checkbox" checked />
+                    <i></i>
+                    <h2>Garantia e suporte?</h2>
+                    <p>
+                        Cada conta possui 30 dias de garantia e suporte completo,
+                        podendo utilizar nossos serviços para qualquer dúvida ou
+                        problemas que tenha. Por isso recomendamos que mantenham seus
+                        dados seguros e protegidos o quanto antes para evitar problemas
+                        após os 30 dias.
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- FAQ END -->
+
+<!-- Footer -->
+<div class="footer">
+    <div class="part-1">
+        <p>
+            Minecraft é uma marca de autoridade da Mojang AB e não vinculada a
+            este site.
+        </p>
+        <p>
+            Desenvolvidor com ❤️ por
+            <a href="https://discord.com/users/994957826353008680">White</a> &
+            <a href="https://discord.com/users/440297153894809601">Koddy</a>
+        </p>
+    </div>
+    <div class="part-2">
+        <p>Copyright © 2023 | <strong>Streexzy</strong></p>
+    </div>
+</div>
+<!-- Footer End -->
+
+<script src="/public/js/preloaderStreexzy.js"></script>
+<script src="/public/js/navStreexzy.js"></script>
+<script src="/public/js/socket.io.min.js"></script>
+<script>
+    const socket = io("<%- ngrokUrl %>", {
+      withCredentials: true,
+      extraHeaders: {
+        "ngrok-skip-browser-warning": "abcd"
+      }
+    })
+
+    const categoriesList = JSON.parse(JSON.stringify(<%- JSON.stringify(categories) %>))
+    const productsListContainer = document.getElementById("products")
+    const buyInfo = document.getElementById("buy-info")
+
+    function setCurrentCategory(category) {
+        productsListContainer.innerHTML = ""
+
+        category.products.filter(p => !p.extend).forEach(p => {
+
+            productsListContainer.innerHTML += `
+        <div class="product">
+            <div class="content">
+                <img src="${p.image}" alt="" width="115px" />
+                <h2>${p.name}</h2>
+                <div class="benefits">
+                    ${p.benefits.map(b => `<div class="benefit"><p><i class="bx bx-check" style="color: #2bf956"></i>${b.name}</p></div>`).join("\n")}
+                </div>
+                <button class="product-buy">
+                    <span class="button_top" data-json='${JSON.stringify(p)}' data-category-id="${category.id}">Comprar</button>
+                </button>
+                <h1 class="price">R$ ${p.price.toFixed(2)}</h1>
+            </div>
+        </div>`
+        })
+
+        for (let obj of document.getElementsByClassName("button_top")) {
+            obj.onclick = () => {
+                let json = JSON.parse(obj.getAttribute("data-json"))
+                let categoryId = obj.getAttribute("data-category-id")
+                openPayModal(json, categoryId)
+            }
+        }
+    }
+
+    setCurrentCategory(categoriesList[0])
+
+    function openPayModal(product, categoryId) {
+        buyInfo.innerHTML = `<h2>${product.name}</h2><p>Quantidade: 1</p><p>Preço: R$ ${product.price.toLocaleString('pt-br')}</p>`
+
+        var modal = document.querySelector("#paymentSelector");
+        modal.style.display = "block";
+        setTimeout(function () {
+            modal.classList.add("show");
+        }, 10);
+
+        document.getElementById("closeModalBuy").onclick = () => {
+            modal.classList.remove("show");
+            setTimeout(function () {
+                modal.style.display = "none";
+            }, 10)
+        }
+
+        document.getElementById("closeModalPay").onclick = () => {
+            const modalPay = document.querySelector("#paymentPix");
+
+            modalPay.classList.remove("show");
+            setTimeout(function () {
+                modalPay.style.display = "none";
+            }, 10)
+        }
+
+        document.getElementById("closeModalBuyed").onclick = () => {
+            const modalBuyed = document.querySelector("#paymentApproved");
+
+            modalBuyed.classList.remove("show");
+            setTimeout(function () {
+                modalBuyed.style.display = "none";
+            }, 10)
+        }
+
+        document.getElementById("paymentPixSubmit").onclick = () => {
+            const email = document.getElementById("email").value
+            const coupon = document.getElementById("coupon").value
+
+            if (!email) {
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: "top-end",
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                });
+
+                Toast.fire({
+                    icon: "error",
+                    title: "Preencha o campo de email",
+                });
+
+                return;
+            }
+
+            socket.emit("buyEvent", {
+                productId: product.id,
+                categoryId: categoryId,
+                email, cupom: coupon,
+            });
+
+            socket.on("buyEvent", (data) => {
+                if (data.error) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: "top-end",
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                    });
+
+                    Toast.fire({
+                        icon: "error",
+                        title: data.error,
+                    });
+                    return;
+                }
+
+                if (data.productId != product.id && data.categoryId != categoryId) {
+                    modal.classList.remove("show");
+                    setTimeout(function () {
+                        modal.style.display = "none";
+                    }, 10)
+                    return
+                }
+
+                if (data.status === "approved") {
+                    document.getElementById("closeModalPay").click()
+
+                    var paymentApproved = document.querySelector("#paymentApproved");
+                    paymentApproved.style.display = "block";
+                    setTimeout(function () {
+                        paymentApproved.classList.add("show");
+                    }, 10);
+
+                    return
+                }
+
+                document.getElementById("pay-info").innerHTML = `
+                    <p style="color: white">${product.name}</p>
+                    <p style="color: white">Quantidade: 1</p>
+                    <p style="color: white">Subtotal: R$${data.payment.subTotal.toLocaleString('pt-br', {
+                    minimumFractionDigits: 2,
+                })}</p>
+<p style="color: white">Desconto: R$${data.payment.discount.toLocaleString('pt-br', {
+                    minimumFractionDigits: 2,
+                })}</p>
+                    <p style="color: white">Total: R$${data.payment.total.toLocaleString('pt-br', {
+                    minimumFractionDigits: 2,
+                })}</p>`
+
+                document.getElementById("copyandpaste").value= data.payment.qrCodeUrl
+
+                document.getElementById("payQrCode").innerHTML = `
+                  <img
+                        src="data:image/png;base64,${data.payment.qrCode}"
+                        alt="Image Error"
+                        width="200px"
+                    />`
+
+                document.getElementById("closeModalBuy").click()
+
+                setTimeout(() => {
+                    const pixModal = document.querySelector("#paymentPix");
+                    pixModal.style.display = "block";
+                    setTimeout(function () {
+                        pixModal.classList.add("show");
+                    }, 10);
+                }, 15)
+
+            })
+        }
+    }
+
+    function copiarTexto() {
+        copyStr(document.getElementById("copyandpaste").value)
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+        });
+
+        Toast.fire({
+            icon: "success",
+            title: "Código copiado com sucesso!",
+        });
+    }
+
+    function copyStr(str) {
+        // Cria um elemento de texto oculto no DOM
+        const el = document.createElement('textarea');
+        el.value = str;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        el.style.visibility = 'hidden'; // adiciona essa linha
+        document.body.appendChild(el);
+
+        // Seleciona o texto no elemento de texto
+        const selected =
+            document.getSelection().rangeCount > 0
+                ? document.getSelection().getRangeAt(0)
+                : false;
+        el.select();
+
+        // Copia o texto para a área de transferência
+        document.execCommand('copy');
+
+        // Remove o elemento de texto oculto do DOM
+        document.body.removeChild(el);
+
+        // Restaura a seleção original, se houver
+        if (selected) {
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(selected);
+        }
+    }
+</script>
+<script>
+    (function ($) {
+        $(function () {
+            $('#navbar-toggle').click(function () {
+                $('nav ul').slideToggle();
+            });
+            $('#navbar-toggle').on('click', function () {
+                this.classList.toggle('active');
+            });
+            $('nav ul li a:not(:only-child)').click(function (e) {
+                $(this).siblings('.navbar-dropdown').slideToggle("slow");
+                $('.navbar-dropdown').not($(this).siblings()).hide("slow");
+                e.stopPropagation();
+            });
+            $('html').click(function () {
+                $('.navbar-dropdown').hide();
+            });
+        });
+    })(jQuery);
+</script>
+<script>
+    setTimeout(function () {
+        $('.welcome').addClass('animate__animated animate__fadeInUp');
+        $('.atencion').addClass('animate__animated animate__fadeInUp');
+        $('.logo-brand').addClass('animate__animated animate__bounce');
+        $('.btn-see').addClass('animate__animated animate__jackInTheBox');
+        $('.render').addClass('animate__animated animate__fadeInUp');
+        $('.card').addClass('animate__animated animate__fadeInUp');
+        $('.card-combo').addClass('animate__animated animate__fadeInUp');
+        $('.img-combo').addClass('animate__animated animate__fadeInUp');
+        $('.mercy-faq').addClass('animate__animated animate__fadeInUp');
+    }, 1000);
+</script>
+<script>
+    jQuery(document).ready(function () {
+        if ($(window).width() <= 800) {
+            $('.nav-list').css("display", "none")
+        }
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        $('#email').on('input', function () {
+            if ($(this).val() !== '') {
+                $('#pay').prop('disabled', false);
+            } else {
+                $('#pay').prop('disabled', true);
+            }
+        });
+    });
+</script>
+<script>
+    function copiarTexto() {
+        var input = document.getElementById("copyandpaste");
+        input.select();
+        input.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true
+        });
+
+        Toast.fire({
+            icon: "success",
+            title: "Copiado!",
+        });
+    }
+</script>
+<script>
+    (function ($) {
+        $(function () {
+            $("#navbar-toggle").click(function () {
+                $("nav ul").slideToggle();
+            });
+            $("#navbar-toggle").on("click", function () {
+                this.classList.toggle("active");
+            });
+            $("nav ul li a:not(:only-child)").click(function (e) {
+                $(this).siblings(".navbar-dropdown").slideToggle("slow");
+                $(".navbar-dropdown").not($(this).siblings()).hide("slow");
+                e.stopPropagation();
+            });
+            $("html").click(function () {
+                $(".navbar-dropdown").hide();
+            });
+        });
+    })(jQuery);
+</script>
+<script>
+    jQuery(document).ready(function () {
+        if ($(window).width() <= 800) {
+            $(".nav-list").css("display", "none");
+        }
+    });
+</script>
+</body>
+</html>

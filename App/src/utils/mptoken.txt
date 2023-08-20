@@ -1,0 +1,1 @@
+{"access_token":"APP_USR-1493841716166577-072119-f34f44ff899bc5adc9b439150496b35c-1173639799","token_type":"Bearer","expires_in":15552000,"scope":"offline_access payments read write","user_id":1173639799,"refresh_token":"TG-64bb1b9da2229a00016973b4-1173639799","public_key":"APP_USR-28a84d96-4913-420a-84b6-93d995897fbf","live_mode":true}

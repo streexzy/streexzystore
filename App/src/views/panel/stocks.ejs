@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/public/css/dashMercy.css"/>
+    <link
+            rel="stylesheet"
+            href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+    />
+    <title>Streexzy - Painel</title>
+</head>
+
+<body>
+<%- include('partials/NavBar.ejs'); %>
+<div class="welcome-2">
+    <div class="row-welcome-2">
+        <h2>Página de gerenciamento:</h2>
+        <p>Gerencimaneto de estoque do sistema</p>
+    </div>
+</div>
+<div class="actions">
+    <div class="row-actions">
+        <div class="action">
+            <h2>Adicionar Estoque</h2>
+            <form action="/panel/stocks/create" method="post" id="addStockForm">
+                <label for="product">Produto:</label>
+                <select id="product" name="productId">
+                    <% categories.forEach((c) => { %>
+                        <% c.products.forEach((p) => { %>
+                            <option value="<%- p.categoryId %>;<%- p.id %>"><%- p.name %></option>
+                        <% }) %>
+                    <% }) %>
+                </select>
+
+                <div class="wrap">
+                    <label for="product">Stocks:</label>
+                    <a style="border: none;" class="add" id="addStockButton">&plus;</a>
+                </div>
+                <div class="benefits" id="productStockFields"></div>
+
+                <input type="submit" onclick="addStock()" value="Adicionar">
+            </form>
+        </div>
+        <div class="action">
+            <h2>Remover Estoque</h2>
+            <form action="/panel/stocks/delete" method="post">
+                <label for="product">Produto:</label>
+                <select id="productList" name="productId" onselect="setStock()" onchange="setStock()">
+                    <% categories.forEach((c) => { %>
+                        <% c.products.forEach((p) => { %>
+                            <option value="<%- p.categoryId %>;<%- p.id %>"><%- p.name %></option>
+                        <% }) %>
+                    <% }) %>
+                </select>
+
+                <label for="stockList">Stock:</label>
+                <select id="stockList" name="stockId"></select>
+
+                <input type="submit" value="Remover">
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    const categoriesList = JSON.parse(JSON.stringify(<%- JSON.stringify(categories) %>))
+    const stockList = document.getElementById('stockList');
+    const addStockButton = document.getElementById('addStockButton');
+    const productStockFields = document.getElementById('productStockFields');
+    const addStockForm = document.getElementById('addStockForm');
+
+    function removeInput() {
+        this.parentElement.remove();
+    }
+
+    function addInput(div) {
+
+        const texto = document.createElement("input");
+        texto.type = "text";
+        texto.placeholder = "Texto";
+        texto.id = "stockText";
+
+        const btn = document.createElement("a");
+        btn.className = "delete";
+        btn.innerHTML = "&times";
+        btn.style.width = "34px"
+
+        btn.addEventListener("click", removeInput)
+
+        const flex = document.createElement("div");
+        flex.className = "flex";
+
+        flex.appendChild(texto)
+        flex.appendChild(btn)
+        div.appendChild(flex)
+    }
+
+    addStockButton.onclick = () => {
+        addInput(productStockFields);
+    }
+
+    function addStock() {
+        const stocks = document.querySelectorAll('#productStockFields div')
+        const stocksArray = []
+
+        stocks.forEach((benefit) => {
+            const text = benefit.querySelector('#stockText').value
+
+            stocksArray.push({
+                value: text
+            })
+        })
+
+        const input = document.createElement('input')
+        input.type = 'hidden'
+        input.name = 'stocks'
+        input.value = JSON.stringify(stocksArray)
+        addStockForm.appendChild(input)
+
+        addStockForm.submit()
+    }
+
+    function setStock() {
+        const productData = document.getElementById('productList').value.split(';');
+        const categoryId = parseInt(productData[0]);
+        const productId = parseInt(productData[1]);
+
+        const stocks = categoriesList
+            .find((c) => c.id === categoryId)
+            .products.find((p) => p.id === productId)['stocks'];
+        stockList.innerHTML = '';
+
+        stocks.forEach((s) => {
+            const option = document.createElement('option');
+            option.value = s.value;
+            option.innerText = s.value;
+            stockList.appendChild(option);
+        });
+    }
+
+    setStock();
+</script>
+
+<%- include('partials/FooterDash.ejs'); %>
+</body>
+</html>

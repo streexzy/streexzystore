@@ -1,0 +1,49 @@
+{
+  "name": "streexzy",
+  "version": "1.0.0",
+  "description": "MercyStore Website",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node App/index.ts",
+    "dev": "ts-node-dev App/index.ts"
+  },
+  "author": "Desconhecido",
+  "license": "ISC",
+  "types": "App/src/types/index.d.ts",
+  "dependencies": {
+    "@socket.io/sticky": "^1.0.3",
+    "axios": "^1.4.0",
+    "bcrypt": "^5.1.0",
+    "cloudflared": "^0.4.0",
+    "colors": "^1.4.0",
+    "connect-session-sequelize": "^7.1.6",
+    "discord.js": "^14.9.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "glob": "^8.0.3",
+    "mercadopago": "^1.5.15",
+    "mysql2": "^3.2.3",
+    "ngrok": "^4.3.3",
+    "nodemailer": "^6.9.1",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.31.0",
+    "sequelize-typescript": "^2.1.5",
+    "socket.io": "^4.6.1",
+    "sqlite3": "^5.1.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/colors": "^1.2.1",
+    "@types/express": "^4.17.17",
+    "@types/express-session": "^1.17.7",
+    "@types/mercadopago": "^1.5.8",
+    "@types/node": "^18.15.11",
+    "@types/nodemailer": "^6.4.7",
+    "@types/sequelize": "^4.28.14",
+    "@types/socket.io": "^3.0.2",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.0.4"
+  }
+}

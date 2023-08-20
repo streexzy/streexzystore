@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/public/css/navMercy.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5/dark.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div class="mercy-navbar">
+      <div class="mercy-header_navbar">
+        <div class="mercy-nav_name">
+          <h2>Streexzy - Painel</h2>
+        </div>
+        <div class="mercy-nav_infos">
+          <a href="https://koddy.cloud"
+            ><button style="display: flex; align-items: center">
+              <i class="bx bx-store-alt" style="color: #ffffff"></i> Ir para
+              site
+            </button></a
+          >
+        </div>
+      </div>
+      <div class="mercy-nav-items">
+        <div class="nav-container">
+          <nav>
+            <div class="nav-mobile">
+              <a id="navbar-toggle" href="#"><span></span></a>
+            </div>
+            <ul class="nav-list">
+              <li>
+                <a href="/panel"><i class="bx bxs-bar-chart-alt-2"></i> Analytics</a>
+              </li>
+              <li>
+                <a href="/panel/categories">
+                  <i class='bx bx-customize' style='color:#ffffff' ></i>
+                  Categorias</a
+                >
+              </li>
+              <li>
+                <a href="/panel/products"><i class="bx bxl-sketch"></i> Produtos</a>
+              </li>
+              <li>
+                <a href="/panel/stocks"><i class="bx bx-package"></i> Stocks</a>
+              </li>
+              <li>
+                <a href="/panel/coupons"
+                  ><i class="bx bxs-envelope" style="color: #ffffff"></i>
+                  Cupons</a
+                >
+              </li>
+              <li>
+                <a href="https://auth.mercadopago.com/authorization?client_id=1493841716166577&response_type=code&platform_id=mp&state=SYNCMP&redirect_uri=https://streexzy.com.br/oauth2/mp">
+                  <i class="bx bxl-sketch"></i>
+                    Vincular Mercado Pago
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function ($) {
+        $(function () {
+          $("#navbar-toggle").click(function () {
+            $("nav ul").slideToggle();
+          });
+          $("#navbar-toggle").on("click", function () {
+            this.classList.toggle("active");
+          });
+          $("nav ul li a:not(:only-child)").click(function (e) {
+            $(this).siblings(".navbar-dropdown").slideToggle("slow");
+            $(".navbar-dropdown").not($(this).siblings()).hide("slow");
+            e.stopPropagation();
+          });
+          $("html").click(function () {
+            $(".navbar-dropdown").hide();
+          });
+        });
+      })(jQuery);
+    </script>
+  </body>
+</html>

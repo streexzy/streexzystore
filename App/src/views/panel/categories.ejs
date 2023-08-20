@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/public/css/dashMercy.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css"
+    />
+    <title>Streexzy - Painel</title>
+  </head>
+
+  <body>
+    <%- include('partials/NavBar.ejs'); %>
+    <div class="welcome-2">
+      <div class="row-welcome-2">
+        <h2>Página de gerenciamento:</h2>
+        <p>Gerencimaneto de categorias do sistema</p>
+      </div>
+    </div>
+    <div class="actions">
+      <div class="row-actions">
+        <div class="action">
+          <h2>Criar Categoria</h2>
+          <form action="/panel/categories/create" method="post">
+            <input type="text" id="category" name="categoryName" />
+            <input type="submit" value="Criar" />
+          </form>
+        </div>
+        <div class="action">
+          <h2>Remover Categoria</h2>
+          <form action="/panel/categories/delete" method="post">
+            <select id="category" name="categoryId">
+              <% categories.forEach((category) => { %>
+                <option value="<%- category.id %>">
+                  <%- category.name %>
+                </option>
+                <% }); %>
+            </select>
+            <input type="submit" value="Remover" />
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <%- include('partials/FooterDash.ejs'); %>
+  </body>
+</html>
